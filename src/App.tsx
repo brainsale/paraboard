@@ -3,7 +3,7 @@ import { InjectedConnector } from "@web3-react/injected-connector";
 import { Web3ReactProvider } from "@web3-react/core";
 import { ConnectToWallet } from "./components/connectToWallet";
 import { getLibrary } from "./utils/getLibrary";
-import { Container, Typography } from "@material-ui/core";
+import { Container, createMuiTheme, CssBaseline, MuiThemeProvider, Typography } from "@material-ui/core";
 
 declare global {
     interface Window {
@@ -11,6 +11,12 @@ declare global {
         ethereum: any;
     }
 }
+
+const darkTheme = createMuiTheme({
+    palette: {
+        type: 'dark',
+    },
+});
 
 export const injectedConnector = new InjectedConnector({
     supportedChainIds: [
@@ -26,13 +32,15 @@ export const getContractForPropertyCall = (address: string, signer: any): any =>
 export const App = () => {
     return (
         <Web3ReactProvider getLibrary={getLibrary}>
-            <ConnectToWallet/>
-            <Container>
-                <Typography variant="h2" gutterBottom align="center">
-                    Paraboard
-                </Typography>
-            </Container>
-
+            <MuiThemeProvider theme={darkTheme}>
+                <CssBaseline/>
+                <ConnectToWallet/>
+                <Container>
+                    <Typography variant="h2" gutterBottom align="center">
+                        Paraboard
+                    </Typography>
+                </Container>
+            </MuiThemeProvider>
         </Web3ReactProvider>
     )
 }
