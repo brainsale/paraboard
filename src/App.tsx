@@ -4,6 +4,7 @@ import { Web3ReactProvider } from "@web3-react/core";
 import { ConnectToWallet } from "./components/connectToWallet";
 import { getLibrary } from "./utils/getLibrary";
 import { Container, createMuiTheme, CssBaseline, MuiThemeProvider, Typography } from "@material-ui/core";
+import { Explainer } from "./components/explainer";
 
 declare global {
     interface Window {
@@ -39,6 +40,7 @@ export const App = () => {
                     <Typography variant="h2" gutterBottom align="center">
                         Paraboard
                     </Typography>
+                    <Explainer/>
                 </Container>
             </MuiThemeProvider>
         </Web3ReactProvider>
