@@ -5,6 +5,8 @@ import { ConnectToWallet } from "./components/connectToWallet";
 import { getLibrary } from "./utils/getLibrary";
 import { Container, createMuiTheme, CssBaseline, MuiThemeProvider, Typography } from "@material-ui/core";
 import { Explainer } from "./components/explainer";
+import { TxList } from "./components/txList";
+import * as paraswapAbi from "./assets/contracts/paraswap.json";
 
 declare global {
     interface Window {
@@ -30,6 +32,15 @@ export const getContractForPropertyCall = (address: string, signer: any): any =>
     // todo
 };
 
+// todo in const file
+export const PARASWAP_V2_CONTRACT_ADD = "0x9509665d015bfe3c77aa5ad6ca20c8afa1d98989";
+export const PARASWAP_V3_CONTRACT_ADD = "0xf90e98f3d8dce44632e5020abf2e122e0f99dfab";
+export const ETHER_TOKEN = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
+export const PARASWAP_V2_CONTRACT_ABI = paraswapAbi.v2abi;
+export const PARASWAP_V3_CONTRACT_ABI = paraswapAbi.v3abi;
+export const T2CR_LIST = "https://t2crtokens.eth.link/";
+
+// todo test account
 export const App = () => {
     return (
         <Web3ReactProvider getLibrary={getLibrary}>
@@ -41,6 +52,7 @@ export const App = () => {
                         Paraboard
                     </Typography>
                     <Explainer/>
+                    <TxList account={"0xEB74C6E3c046E16190DfeFB7d3CBA84Db5790CC4"}/>
                 </Container>
             </MuiThemeProvider>
         </Web3ReactProvider>
