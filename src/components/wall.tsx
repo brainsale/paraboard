@@ -7,7 +7,7 @@ export const Wall = () => {
     return (
         <Grid container>
             <Grid item xs={6}>
-                <TxList account="0xEB74C6E3c046E16190DfeFB7d3CBA84Db5790CC4" />
+                <TxList />
             </Grid>
             <Grid item xs={6}>
                 <Comments transaction={''} />
