@@ -12,14 +12,15 @@ import {
 import { ParaswapTransaction } from '../model/paraswapTransaction';
 import { BigNumber, ethers } from 'ethers';
 import { Token } from '../model/token';
-import { Box, List, ListItem, ListItemIcon, ListItemText, Typography } from '@material-ui/core';
+import { Box, List, ListItem, ListItemIcon, ListItemText, Slide, Typography } from '@material-ui/core';
 import { SwapHoriz } from '@material-ui/icons';
 import { useSelectedAccount } from '../providers/selectedAccount';
 
-export const TxList = () => {
+export const TxList = (props: any) => {
     const [txList, setTxList] = useState([]);
     const [filteredTxList, setFilteredTxList] = useState([]);
     const [tokenList, setTokenList] = useState([]);
+    const [selectedHash, setSelectedHash] = useState('');
     const { selectedAccount } = useSelectedAccount();
 
     const paraswapV2Interface = new ethers.utils.Interface(PARASWAP_V2_CONTRACT_ABI);
@@ -53,17 +54,35 @@ export const TxList = () => {
         const paidRatio = fromAmount / toAmount;
 
         return (
-            <ListItem key={tx.hash} button>
-                <ListItemIcon>
-                    <SwapHoriz fontSize="large" />
-                </ListItemIcon>
-                <ListItemText
-                    primary={`From ${fromAmount.toFixed(2)} ${tx.fromToken} to ${toAmount.toFixed(2)} ${tx.toToken}`}
-                    primaryTypographyProps={{ variant: 'h6' }}
-                    secondaryTypographyProps={{ variant: 'subtitle2', color: 'secondary' }}
-                    secondary={`${date.toLocaleString()}, ${paidRatio.toFixed(4)} ${tx.fromToken} for 1 ${tx.toToken}`}
-                />
-            </ListItem>
+            <Slide direction="up" in={true} mountOnEnter unmountOnExit>
+                <ListItem
+                    key={tx.hash}
+                    button
+                    selected={selectedHash === tx.hash}
+                    onClick={() => {
+                        if (selectedHash === tx.hash) {
+                            setSelectedHash('');
+                            props.selectTx(null);
+                        } else {
+                            setSelectedHash(tx.hash);
+                            props.selectTx(tx);
+                        }
+                    }}>
+                    <ListItemIcon>
+                        <SwapHoriz fontSize="large" />
+                    </ListItemIcon>
+                    <ListItemText
+                        primary={`From ${fromAmount.toFixed(2)} ${tx.fromToken} to ${toAmount.toFixed(2)} ${
+                            tx.toToken
+                        }`}
+                        primaryTypographyProps={{ variant: 'h6' }}
+                        secondaryTypographyProps={{ variant: 'subtitle2', color: 'secondary' }}
+                        secondary={`${date.toLocaleString()}, ${paidRatio.toFixed(4)} ${tx.fromToken} for 1 ${
+                            tx.toToken
+                        }`}
+                    />
+                </ListItem>
+            </Slide>
         );
     };
 
