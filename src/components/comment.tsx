@@ -13,7 +13,7 @@ export const Comment = (props: any) => {
     }, [props.commentData]);
 
     return (
-        <Grow in={displayed} {...(displayed ? { timeout: 500, exit: true } : {})}>
+        <Grow in={displayed} {...(displayed ? { timeout: 500 } : {})}>
             <Box m={1}>
                 <Card raised>
                     <CardContent>
